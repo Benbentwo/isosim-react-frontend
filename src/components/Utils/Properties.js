@@ -6,8 +6,7 @@ export class AppProps {
     static BitmappedField = "Bitmapped";
 
     constructor() {
-        //this.baseUrl = 'http://localhost:8080';
-        this.baseUrl = '';
+        this.baseUrl = window.REACT_APP_API_URL || 'http://localhost:8080';
         this.sendMsgUrl = this.baseUrl + '/iso/v1/send';
         this.loadMsgUrl = this.baseUrl + '/iso/v1/loadmsg';
         this.allSpecsUrl = this.baseUrl + '/iso/v1/specs';

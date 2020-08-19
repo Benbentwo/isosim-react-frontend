@@ -1,0 +1,33 @@
+apiVersion: skaffold/v1beta13
+kind: Config
+build:
+  tagPolicy:
+    envTemplate:
+      template: "{{.DOCKER_REGISTRY}}/{{.ORG}}/{{.APP_NAME}}:{{.VERSION}}"
+  artifacts:
+    - image: changeme
+      context: .
+      docker: {}
+  local: {}
+deploy:
+  kubectl: {}
+profiles:
+  - name: dev
+    build:
+      artifacts:
+        - image: 'dev/isosim-frontend'
+          context: .
+          docker: {}
+      local:
+        push: false
+      tagPolicy:
+        envTemplate:
+          template: 'dev/isosim-frontend:{{.USER}}'
+    deploy:
+      helm:
+        releases:
+          - name: isosim-frontend
+            chartPath: isosim-react-frontend
+            setValueTemplates:
+              image.repository: 'dev/isosim-frontend'
+              image.tag: '{{.USER}}'
