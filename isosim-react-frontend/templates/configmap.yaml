@@ -1,7 +1,0 @@
-apiVersion: v1
-data:
-  config.js: |
-    window.REACT_APP_API_URL='{{ .Values.reactAppApiUrl }}'
-kind: ConfigMap
-metadata:
-  name: {{ .Values.configjs.configmapName }}
